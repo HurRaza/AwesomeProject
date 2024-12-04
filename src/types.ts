@@ -6,6 +6,7 @@ export type RootStackParamList = {
     EditNote: {noteId: string | undefined};
     Login:undefined;
     Signup:undefined;
+    Counter:undefined;
   };
 
 export type ScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>

@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     backgroundColor: '#fff',
-    margin:20,
+    margin: 20,
     padding: 20,
     borderRadius: 10,
     marginBottom: 20,

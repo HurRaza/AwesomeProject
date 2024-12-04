@@ -10,11 +10,12 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import Button from '../components/Button';
 import CustomInput from '../components/CustomInput';
+import { ScreenNavigationProp } from '../types';
 
 const SignupScreen = () => {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmVisible, setIsConfirmVisible] = useState(false);
-  const navigation = useNavigation();
+  const navigation = useNavigation<ScreenNavigationProp>();
 
   return (
     <KeyboardAvoidingView
@@ -30,12 +31,12 @@ const SignupScreen = () => {
             <CustomInput
               label="Full Name"
               placeholder="John Doe"
-              icon={require('../assets/user.png')}
+              icon={require('../../assets/user.png')}
             />
             <CustomInput
               label="Email"
               placeholder="john123@gmail.com"
-              icon={require('../assets/user.png')}
+              icon={require('../../assets/user.png')}
             />
             <CustomInput
               label="Password"
@@ -43,8 +44,8 @@ const SignupScreen = () => {
               secureTextEntry={!isPasswordVisible}
               customIcon={
                 isPasswordVisible
-                  ? require('../assets/eyeclose.png')
-                  : require('../assets/eye.png')
+                  ? require('../../assets/eyeclose.png')
+                  : require('../../assets/eye.png')
               }
               onIconPress={() => setIsPasswordVisible(!isPasswordVisible)}
             />
@@ -54,8 +55,8 @@ const SignupScreen = () => {
               secureTextEntry={!isConfirmVisible}
               customIcon={
                 isConfirmVisible
-                  ? require('../assets/eyeclose.png')
-                  : require('../assets/eye.png')
+                  ? require('../../assets/eyeclose.png')
+                  : require('../../assets/eye.png')
               }
               onIconPress={() => setIsConfirmVisible(!isConfirmVisible)}
             />

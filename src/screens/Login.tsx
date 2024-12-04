@@ -30,7 +30,7 @@ const LoginScreen = () => {
             <CustomInput
               label="Email"
               placeholder="john123@gmail.com"
-              icon={require('../assets/user.png')}
+              icon={require('../../assets/user.png')}
             />
             <CustomInput
               label="Password"
@@ -38,8 +38,8 @@ const LoginScreen = () => {
               secureTextEntry={!isPasswordVisible}
               customIcon={
                 isPasswordVisible
-                  ? require('../assets/eyeclose.png')
-                  : require('../assets/eye.png')
+                  ? require('../../assets/eyeclose.png')
+                  : require('../../assets/eye.png')
               }
               onIconPress={() => setIsPasswordVisible(!isPasswordVisible)}
             />
