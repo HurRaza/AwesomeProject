@@ -12,6 +12,7 @@ type CustomInputProps = {
   label: string;
   placeholder: string;
   secureTextEntry?: boolean;
+  value?: string;
   onChangeText?: (text: string) => void;
   icon?: any;
   customIcon?: any;
@@ -22,6 +23,7 @@ const CustomInput = ({
   label,
   placeholder,
   secureTextEntry = false,
+  value,
   onChangeText,
   icon,
   customIcon,
@@ -45,6 +47,7 @@ const CustomInput = ({
           placeholder={placeholder}
           placeholderTextColor="#B2A59D"
           secureTextEntry={isPasswordVisible}
+          value={value}
           onChangeText={onChangeText}
         />
         <TouchableOpacity onPress={handlePasswordToggle}>

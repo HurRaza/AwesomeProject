@@ -6,56 +6,83 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenNavigationProp} from '../types';
 import Button from '../components/Button';
 import CustomInput from '../components/CustomInput';
+import {useDispatch, useSelector} from 'react-redux';
+import {login} from '../redux/slices/AuthSlice';
+import {AppDispatch, RootState} from '../redux/store';
 
 const LoginScreen = () => {
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
   const navigation = useNavigation<ScreenNavigationProp>();
+  const dispatch = useDispatch<AppDispatch>();
+  const {isLoading} = useSelector((state: RootState) => state.auth);
+
+  const handleLogin = () => {
+    const params = {
+      username: email,
+      password: password,
+    };
+    dispatch(login(params));
+    // navigation.popTo('Home');
+  };
 
   return (
     <KeyboardAvoidingView
       style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        <View style={styles.heroContainer}>
-          <Text style={styles.heroText}>Hello</Text>
-          <Text style={styles.heroText}>Sign in!</Text>
+      {isLoading ? (
+        <View style={{flex: 1, justifyContent: 'center'}}>
+          <ActivityIndicator size="large" />
         </View>
-        <View style={styles.overlay}>
-          <View style={styles.inputContainer}>
-            <CustomInput
-              label="Email"
-              placeholder="john123@gmail.com"
-              icon={require('../../assets/user.png')}
-            />
-            <CustomInput
-              label="Password"
-              placeholder="*********"
-              secureTextEntry={!isPasswordVisible}
-              customIcon={
-                isPasswordVisible
-                  ? require('../../assets/eyeclose.png')
-                  : require('../../assets/eye.png')
-              }
-              onIconPress={() => setIsPasswordVisible(!isPasswordVisible)}
-            />
-            <Text style={styles.forgot}>Forgot Password?</Text>
-            <Button title="SIGN IN" func={() => navigation.popTo('Home')} />
-            <View style={styles.signCont}>
-              <Text style={styles.ques}>Don't have an account?</Text>
-              <Text
-                style={styles.sign}
-                onPress={() => navigation.navigate('Signup')}>
-                Sign up
-              </Text>
+      ) : (
+        <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+          <View style={styles.heroContainer}>
+            <Text style={styles.heroText}>Hello</Text>
+            <Text style={styles.heroText}>Sign in!</Text>
+          </View>
+          <View style={styles.overlay}>
+            <View style={styles.inputContainer}>
+              <CustomInput
+                value={email}
+                onChangeText={setEmail}
+                label="Email"
+                placeholder="john123@gmail.com"
+                icon={require('../../assets/user.png')}
+              />
+              <CustomInput
+                value={password}
+                onChangeText={setPassword}
+                label="Password"
+                placeholder="*********"
+                secureTextEntry={!isPasswordVisible}
+                customIcon={
+                  isPasswordVisible
+                    ? require('../../assets/eyeclose.png')
+                    : require('../../assets/eye.png')
+                }
+                onIconPress={() => setIsPasswordVisible(!isPasswordVisible)}
+              />
+              <Text style={styles.forgot}>Forgot Password?</Text>
+              <Button title="SIGN IN" func={handleLogin} />
+              <View style={styles.signCont}>
+                <Text style={styles.ques}>Don't have an account?</Text>
+                <Text
+                  style={styles.sign}
+                  onPress={() => navigation.navigate('Signup')}>
+                  Sign up
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      )}
     </KeyboardAvoidingView>
   );
 };

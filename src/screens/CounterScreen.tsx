@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import {useDispatch, useSelector} from 'react-redux';
 import {decrement, increment, incrementByAmount} from '../redux/slices/CounterSlice';
 import type {RootState} from '../redux/store';
+import { logout } from '../redux/slices/AuthSlice';
 
 const CounterScreen = () => {
   const count = useSelector((state: RootState) => state.counter.value);
@@ -20,6 +21,9 @@ const CounterScreen = () => {
       </View>
       <View style={styles.btnCont}>
         <Button title="Increment by 5" func={() => dispatch(incrementByAmount(5))} />
+      </View>
+      <View style={styles.btnCont}>
+        <Button title="Logout" func={() => dispatch(logout())} />
       </View>
     </View>
   );
