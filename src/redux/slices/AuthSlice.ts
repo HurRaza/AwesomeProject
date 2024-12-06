@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { API } from '../../api';
+import { showToast } from '../../components/ToastUtils';
 
-// Define the structure of the user data
+
 export interface UserData {
   id: number;
   username: string;
@@ -14,13 +15,12 @@ export interface UserData {
   refreshToken: string;
 }
 
-// Define the structure of the login parameters
+
 export interface LoginParams {
   username: string;
   password: string;
 }
 
-// Define the structure of the AuthState
 export interface AuthState {
   userData: UserData | null;
   isLoading: boolean;
@@ -35,7 +35,7 @@ const initialState: AuthState = {
   isError: false,
 };
 
-// Async thunk for login
+
 export const login = createAsyncThunk<UserData, LoginParams>(
   'auth/login',
   async (params: LoginParams, thunkApi) => {
@@ -43,12 +43,12 @@ export const login = createAsyncThunk<UserData, LoginParams>(
       const response = await API.post('auth/login', params);
       return response.data as UserData;
     } catch (err: any) {
-      return thunkApi.rejectWithValue(err.response?.data || err.message);
+      return thunkApi.rejectWithValue(err.response?.data?.message || err.message);
     }
   }
 );
 
-// Auth slice
+
 const AuthSlice = createSlice({
   name: 'authSlice',
   initialState,
@@ -71,11 +71,12 @@ const AuthSlice = createSlice({
       state.isError = false;
       state.userData = action.payload;
     });
-    builder.addCase(login.rejected, (state) => {
+    builder.addCase(login.rejected, (state,action) => {
       state.isLoading = false;
       state.isError = true;
       state.isSuccess = false;
       state.userData = null;
+      showToast(action.payload as string);
     });
   },
 });

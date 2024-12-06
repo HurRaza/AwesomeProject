@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -30,7 +30,8 @@ const LoginScreen = () => {
       password: password,
     };
     dispatch(login(params));
-    // navigation.popTo('Home');
+    setEmail('');
+    setPassword('');
   };
 
   return (

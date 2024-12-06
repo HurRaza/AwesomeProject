@@ -22,9 +22,6 @@ const CounterScreen = () => {
       <View style={styles.btnCont}>
         <Button title="Increment by 5" func={() => dispatch(incrementByAmount(5))} />
       </View>
-      <View style={styles.btnCont}>
-        <Button title="Logout" func={() => dispatch(logout())} />
-      </View>
     </View>
   );
 };
