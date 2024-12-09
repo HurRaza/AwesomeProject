@@ -15,6 +15,8 @@ import StopWatchScreen from './src/screens/StopWatchScreen';
 import CalulatorScreen from './src/screens/CalculatorScreen';
 import TodoScreen from './src/screens/TodoScreen';
 import HomeScreen from './src/screens/HomeScreen';
+import PostScreen from './src/screens/PostScreen';
+import AddPostScreen from './src/screens/AddPost';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,6 +26,16 @@ function RootStack() {
     <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
       {userData ? (
         <>
+          <Stack.Screen
+            name="Posts"
+            component={PostScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="AddPost"
+            component={AddPostScreen}
+            options={{headerShown: false}}
+          />
           <Stack.Screen
             name="Home"
             component={HomeScreen}

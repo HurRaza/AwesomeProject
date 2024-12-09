@@ -3,10 +3,12 @@ import counterReducer from './slices/CounterSlice'
 import AuthSlice from './slices/AuthSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { persistReducer, persistStore } from 'redux-persist';
+import { postsApi} from './api';
 
 const reducers = combineReducers({
     counter: counterReducer,
-    auth: AuthSlice
+    auth: AuthSlice,
+    [postsApi.reducerPath] : postsApi.reducer
 })
 
 const persistConfig = {
@@ -19,7 +21,7 @@ const persistedReducer = persistReducer(persistConfig,reducers);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck:false})
+  middleware: getDefaultMiddleware => getDefaultMiddleware({serializableCheck:false}).concat(postsApi.middleware)
 })
 
 const persistor = persistStore(store);

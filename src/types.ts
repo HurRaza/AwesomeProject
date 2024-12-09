@@ -1,6 +1,13 @@
 import { RouteProp } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
+export interface Post {
+  id: string; 
+  title: string; 
+  views: number; 
+}
+
+
 export type RootStackParamList = {
     Home: undefined;
     Notes:undefined;
@@ -10,7 +17,9 @@ export type RootStackParamList = {
     Counter:undefined;
     Stopwatch:undefined;
     Calculator:undefined;
-    Todo:undefined
+    Todo:undefined;
+    Posts: undefined;
+    AddPost: undefined;
   };
 
 export type ScreenNavigationProp = NativeStackNavigationProp<RootStackParamList>
